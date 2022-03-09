@@ -11,10 +11,9 @@ import Metal
 
 class KernelCalcViewController: MetalViewController {
     // MARK: Variables
-    private let arraySize = 64
+    private let arraySize = 1_000_000
     private lazy var arrayA = createRandomArray()
     private lazy var arrayB = createRandomArray()
-    private var result: [Float] = []
     
     // MARK: Metal Variables
     private var metalLibrary: MTLLibrary!
@@ -26,8 +25,6 @@ class KernelCalcViewController: MetalViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        result = addArrays(a: arrayA, b: arrayB)
         
         setupUI()
         setupMetal()
@@ -41,6 +38,7 @@ class KernelCalcViewController: MetalViewController {
     
     // MARK: - Metal Setup
     private func setupMetal() {
+        print("\(Date()) - Kernel Calculation: Initializing...")
         metalLibrary = device.makeDefaultLibrary()!
         addFunction = metalLibrary.makeFunction(name: "add_arrays")!
         pipeline = try! device.makeComputePipelineState(function: addFunction)
@@ -67,35 +65,15 @@ class KernelCalcViewController: MetalViewController {
         commandBuffer.commit()
         commandBuffer.waitUntilCompleted()
         
-        verifyResults(a: bufferResult, b: result)
+        print("\(Date()) - Kernel Calculation: Success!")
     }
     
     // MARK: - Logic
-    private func addArrays(a: [Float], b: [Float]) -> [Float] {
-        guard a.count == b.count else {
-            fatalError("Invalid input, must be equal sizes")
-        }
-        
-        var result: [Float] = []
-        for i in 0..<a.count {
-            result.append(a[i] + b[i])
-        }
-        
-        return result
-    }
-    
     private func createRandomArray() -> [Float] {
         var array: [Float] = []
         for _ in 0..<arraySize {
             array.append(Float.random(in: -1000...1000))
         }
         return array
-    }
-    
-    private func verifyResults(a: MTLBuffer, b: [Float]) {
-        let a2 = a.contents().assumingMemoryBound(to: Float.self)
-        for i in 0..<arraySize {
-            assert(a2[i] == b[i])
-        }
     }
 }
