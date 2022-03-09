@@ -8,6 +8,12 @@
 import UIKit
 
 class MainViewController: UIViewController {
+    // MARK: - Variables
+    private let viewControllers: [UIViewController.Type] = [
+        KernelCalcViewController.self
+    ]
+    
+    
     // MARK: - UI Components
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -26,13 +32,32 @@ class MainViewController: UIViewController {
 
     // MARK: - UI Helpers
     private func setupUI() {
+        title = "Metallurgy"
+        view.backgroundColor = .systemBackground
         view.addSubview(stackView)
         
-        NSLayoutConstraint.activate([stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                                     stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                                     stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                                     stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        viewControllers.enumerated().forEach { (index, viewController) in
+            let button = UIButton(type: .system)
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.tag = index
+            let title = viewController.description()
+                .replacingOccurrences(of: "Metallurgy.", with: "")
+                .replacingOccurrences(of: "ViewController", with: "")
+            button.setTitle(title, for: .normal)
+            button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+            stackView.addSubview(button)
+        }
+        
+        NSLayoutConstraint.activate([stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+                                     stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+                                     stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+                                     stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
                                     ])
+    }
+    
+    @objc private func buttonPressed(_ sender: UIButton) {
+        let viewController = viewControllers[sender.tag].init()
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 

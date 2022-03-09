@@ -12,6 +12,7 @@
 		04429B8027D93C470068CAB0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04429B7F27D93C470068CAB0 /* MainViewController.swift */; };
 		04429B8527D93C470068CAB0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04429B8427D93C470068CAB0 /* Assets.xcassets */; };
 		04429B8827D93C470068CAB0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04429B8627D93C470068CAB0 /* LaunchScreen.storyboard */; };
+		04429B9627D940200068CAB0 /* KernelCalcViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04429B9527D940200068CAB0 /* KernelCalcViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		04429B8427D93C470068CAB0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04429B8727D93C470068CAB0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		04429B8927D93C470068CAB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04429B9527D940200068CAB0 /* KernelCalcViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KernelCalcViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +68,6 @@
 			children = (
 				04429B8427D93C470068CAB0 /* Assets.xcassets */,
 				04429B8627D93C470068CAB0 /* LaunchScreen.storyboard */,
-				04429B8927D93C470068CAB0 /* Info.plist */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -74,6 +75,7 @@
 		04429B9027D93FA30068CAB0 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				04429B9527D940200068CAB0 /* KernelCalcViewController.swift */,
 				04429B7F27D93C470068CAB0 /* MainViewController.swift */,
 			);
 			path = ViewControllers;
@@ -83,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				04429B7B27D93C470068CAB0 /* AppDelegate.swift */,
+				04429B8927D93C470068CAB0 /* Info.plist */,
 				04429B7D27D93C470068CAB0 /* SceneDelegate.swift */,
 			);
 			path = _AppSetup;
@@ -158,6 +161,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04429B9627D940200068CAB0 /* KernelCalcViewController.swift in Sources */,
 				04429B8027D93C470068CAB0 /* MainViewController.swift in Sources */,
 				04429B7C27D93C470068CAB0 /* AppDelegate.swift in Sources */,
 				04429B7E27D93C470068CAB0 /* SceneDelegate.swift in Sources */,
@@ -303,7 +307,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = UMDMXH9PFW;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Metallurgy/Info.plist;
+				INFOPLIST_FILE = Metallurgy/_AppSetup/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -331,7 +335,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = UMDMXH9PFW;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Metallurgy/Info.plist;
+				INFOPLIST_FILE = Metallurgy/_AppSetup/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
