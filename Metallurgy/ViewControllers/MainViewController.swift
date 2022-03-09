@@ -6,13 +6,15 @@
 //
 
 import UIKit
+import Metal
 
 class MainViewController: UIViewController {
     // MARK: - Variables
-    private let viewControllers: [UIViewController.Type] = [
+    private let viewControllers: [MetalViewController.Type] = [
         KernelCalcViewController.self
     ]
     
+    private var device: MTLDevice!
     
     // MARK: - UI Components
     private let stackView: UIStackView = {
@@ -28,6 +30,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
+        device = MTLCreateSystemDefaultDevice()!
     }
 
     // MARK: - UI Helpers
@@ -56,7 +59,7 @@ class MainViewController: UIViewController {
     }
     
     @objc private func buttonPressed(_ sender: UIButton) {
-        let viewController = viewControllers[sender.tag].init()
+        let viewController = viewControllers[sender.tag].init(metalDevice: device)
         navigationController?.pushViewController(viewController, animated: true)
     }
 }

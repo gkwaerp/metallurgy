@@ -7,27 +7,81 @@
 
 import Foundation
 import UIKit
+import Metal
 
-class KernelCalcViewController: UIViewController {
+class MetalViewController: UIViewController {
+    let device: MTLDevice
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    required init(metalDevice: MTLDevice) {
+        device = metalDevice
+        super.init(nibName: nil, bundle: nil)
+    }
+}
+
+class KernelCalcViewController: MetalViewController {
     // MARK: Variables
     private let arraySize = 64
     private lazy var arrayA = createRandomArray()
     private lazy var arrayB = createRandomArray()
     private var result: [Float] = []
     
+    // MARK: Metal Variables
+    private var metalLibrary: MTLLibrary!
+    private var addFunction: MTLFunction!
+    private var pipeline: MTLComputePipelineState!
+    private var commandQueue: MTLCommandQueue!
+    
     // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupUI()
-        
         result = addArrays(a: arrayA, b: arrayB)
+        
+        setupUI()
+        setupMetal()
     }
     
     // MARK: - UI Helpers
     private func setupUI() {
         view.backgroundColor = .systemBackground
         title = "Kernel Calculations"
+    }
+    
+    // MARK: - Metal Setup
+    private func setupMetal() {
+        metalLibrary = device.makeDefaultLibrary()!
+        addFunction = metalLibrary.makeFunction(name: "add_arrays")!
+        pipeline = try! device.makeComputePipelineState(function: addFunction)
+        commandQueue = device.makeCommandQueue()
+        
+        let bufferA = device.makeBuffer(bytes: &arrayA, length: arraySize * MemoryLayout<Float>.size, options: .storageModeShared)!
+        let bufferB = device.makeBuffer(bytes: &arrayB, length: arraySize * MemoryLayout<Float>.size, options: .storageModeShared)!
+        let bufferResult = device.makeBuffer(length: MemoryLayout<Float>.size * arraySize, options: .storageModeShared)!
+        
+        let commandBuffer = commandQueue.makeCommandBuffer()!
+        let computeCommandEncoder = commandBuffer.makeComputeCommandEncoder()!
+        computeCommandEncoder.setComputePipelineState(pipeline)
+        computeCommandEncoder.setBuffer(bufferA, offset: 0, index: 0)
+        computeCommandEncoder.setBuffer(bufferB, offset: 0, index: 1)
+        computeCommandEncoder.setBuffer(bufferResult, offset: 0, index: 2)
+        
+        let gridSize = MTLSize(width: arraySize, height: 1, depth: 1)
+        
+        let threadGroupWidth = min(pipeline.maxTotalThreadsPerThreadgroup, arraySize)
+        let threadGroupSize = MTLSize(width: threadGroupWidth, height: 1, depth: 1)
+        
+        computeCommandEncoder.dispatchThreads(gridSize, threadsPerThreadgroup: threadGroupSize)
+        computeCommandEncoder.endEncoding()
+        commandBuffer.commit()
+        commandBuffer.waitUntilCompleted()
+        
+        verifyResults(a: bufferResult, b: result)
     }
     
     // MARK: - Logic
@@ -50,5 +104,12 @@ class KernelCalcViewController: UIViewController {
             array.append(Float.random(in: -1000...1000))
         }
         return array
+    }
+    
+    private func verifyResults(a: MTLBuffer, b: [Float]) {
+        let a2 = a.contents().assumingMemoryBound(to: Float.self)
+        for i in 0..<arraySize {
+            assert(a2[i] == b[i])
+        }
     }
 }
