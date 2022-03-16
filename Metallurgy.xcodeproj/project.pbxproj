@@ -15,6 +15,7 @@
 		04429B9627D940200068CAB0 /* KernelCalcViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04429B9527D940200068CAB0 /* KernelCalcViewController.swift */; };
 		04429B9927D946820068CAB0 /* kernel_add.metal in Sources */ = {isa = PBXBuildFile; fileRef = 04429B9827D946820068CAB0 /* kernel_add.metal */; };
 		04429B9B27D954270068CAB0 /* MetalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04429B9A27D954270068CAB0 /* MetalViewController.swift */; };
+		04471AC627E1449D00F6A1F1 /* MetalViewDrawingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04471AC527E1449D00F6A1F1 /* MetalViewDrawingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		04429B9527D940200068CAB0 /* KernelCalcViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KernelCalcViewController.swift; sourceTree = "<group>"; };
 		04429B9827D946820068CAB0 /* kernel_add.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = kernel_add.metal; sourceTree = "<group>"; };
 		04429B9A27D954270068CAB0 /* MetalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalViewController.swift; sourceTree = "<group>"; };
+		04471AC527E1449D00F6A1F1 /* MetalViewDrawingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalViewDrawingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				04429B9527D940200068CAB0 /* KernelCalcViewController.swift */,
+				04471AC527E1449D00F6A1F1 /* MetalViewDrawingViewController.swift */,
 			);
 			path = ShaderViewControllers;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04471AC627E1449D00F6A1F1 /* MetalViewDrawingViewController.swift in Sources */,
 				04429B9627D940200068CAB0 /* KernelCalcViewController.swift in Sources */,
 				04429B8027D93C470068CAB0 /* MainViewController.swift in Sources */,
 				04429B9B27D954270068CAB0 /* MetalViewController.swift in Sources */,

@@ -11,7 +11,8 @@ import Metal
 class MainViewController: UIViewController {
     // MARK: - Variables
     private let viewControllers: [MetalViewController.Type] = [
-        KernelCalcViewController.self
+        KernelCalcViewController.self,
+        MetalViewDrawingViewController.self
     ]
     
     private var device: MTLDevice!
@@ -22,6 +23,7 @@ class MainViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .fill
+        stackView.spacing = 16
         return stackView
     }()
 
@@ -48,13 +50,13 @@ class MainViewController: UIViewController {
                 .replacingOccurrences(of: "ViewController", with: "")
             button.setTitle(title, for: .normal)
             button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-            stackView.addSubview(button)
+            stackView.addArrangedSubview(button)
         }
         
         NSLayoutConstraint.activate([stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
                                      stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
                                      stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-                                     stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
+                                     stackView.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
                                     ])
     }
     

@@ -5,6 +5,8 @@
 //  Created by Geir-Kåre S. Wærp on 09/03/2022.
 //
 
+// Based on: https://developer.apple.com/documentation/metal/basic_tasks_and_concepts/performing_calculations_on_a_gpu
+
 import Foundation
 import UIKit
 import Metal
@@ -21,8 +23,7 @@ class KernelCalcViewController: MetalViewController {
     private var pipeline: MTLComputePipelineState!
     private var commandQueue: MTLCommandQueue!
     
-    // MARK: - Life Cycle
-    
+    // MARK: - Life Cycle    
     override func viewDidLoad() {
         super.viewDidLoad()
         
